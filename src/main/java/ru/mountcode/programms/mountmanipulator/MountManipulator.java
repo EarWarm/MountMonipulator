@@ -50,9 +50,6 @@ public class MountManipulator {
         }
 
         // UI
-        LookAndFeel.init();
-        LookAndFeel.setLookAndFeel();
-
-        AppWindow.getInstance().setVisible(true);
+        AppWindow.getInstance().initialize();
     }
 }
