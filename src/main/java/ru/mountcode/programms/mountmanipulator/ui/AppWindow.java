@@ -15,6 +15,8 @@ public class AppWindow extends JFrame {
 
     public MainPanel mainPanel;
 
+
+    //Init gui
     public AppWindow() {
         instance = this;
 
