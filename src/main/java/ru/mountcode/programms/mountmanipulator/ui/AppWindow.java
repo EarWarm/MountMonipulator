@@ -1,12 +1,20 @@
 package ru.mountcode.programms.mountmanipulator.ui;
 
-public class AppWindow {
+import javafx.application.Application;
+import javafx.stage.Stage;
+
+public class AppWindow extends Application {
 
     private static AppWindow instance;
 
     //Init gui
     public AppWindow() {
         instance = this;
+    }
+
+    @Override
+    public void start(Stage primaryStage) {
+
     }
 
     public void initialize() {

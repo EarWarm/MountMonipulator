@@ -4,7 +4,6 @@ import ru.mountcode.programms.mountmanipulator.configuration.Configuration;
 import ru.mountcode.programms.mountmanipulator.helpers.IOHelper;
 import ru.mountcode.programms.mountmanipulator.logging.Logger;
 import ru.mountcode.programms.mountmanipulator.ui.AppWindow;
-import ru.mountcode.programms.mountmanipulator.ui.laf.LookAndFeel;
 import ru.mountcode.programms.mountmanipulator.workspace.Workspace;
 import ru.mountcode.yaml.configuration.InvalidConfigurationException;
 
