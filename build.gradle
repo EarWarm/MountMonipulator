@@ -1,0 +1,55 @@
+plugins {
+    id 'java'
+    id 'groovy'
+    id 'java-gradle-plugin'
+    id 'idea'
+    id 'eclipse'
+}
+
+group 'ru.mountcode.programms.mountmanipulator'
+version '1.0.0'
+
+repositories {
+    mavenCentral()
+
+    maven {
+        url = uri("https://oss.sonatype.org/content/repositories/snapshots/")
+    }
+    gradlePluginPortal()
+}
+
+dependencies {
+    implementation group: 'org.ow2.asm', name: 'asm', version: '9.5'
+    implementation group: 'org.ow2.asm', name: 'asm-tree', version: '9.5'
+    implementation group: 'commons-cli', name: 'commons-cli', version: '1.5.0'
+
+    implementation group: 'org.yaml', name: 'snakeyaml', version: '2.1'
+    implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.13.0'
+    implementation group: 'com.google.guava', name: 'guava', version: '32.1.2-jre'
+    implementation group: 'org.jetbrains', name: 'annotations', version: '24.0.1'
+
+    // UI libraries
+    implementation group: 'com.github.weisj', name: 'darklaf-core', version: '3.0.2'
+    implementation group: 'com.github.weisj', name: 'darklaf-theme', version: '3.0.2'
+    implementation group: 'com.github.weisj', name: 'darklaf-property-loader', version: '3.0.2'
+}
+
+def targetJavaVersion = 20
+tasks.withType(JavaCompile).configureEach {
+    // ensure that the encoding is set to UTF-8, no matter what the system default is
+    // this fixes some edge cases with special characters not displaying correctly
+    // see http://yodaconditions.net/blog/fix-for-java-file-encoding-problems-with-gradle.html
+    // If Javadoc is generated, this must be specified in that task too.
+    it.options.encoding = "UTF-8"
+    if (targetJavaVersion >= 10 || JavaVersion.current().isJava10Compatible()) {
+        it.options.release = targetJavaVersion
+    }
+}
+
+java {
+    def javaVersion = JavaVersion.toVersion(targetJavaVersion)
+    if (JavaVersion.current() < javaVersion) {
+        toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
+    }
+    withSourcesJar()
+}
