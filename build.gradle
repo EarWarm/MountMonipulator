@@ -33,10 +33,11 @@ dependencies {
     implementation group: 'com.github.weisj', name: 'darklaf-theme', version: '3.0.2'
     implementation group: 'com.github.weisj', name: 'darklaf-property-loader', version: '3.0.2'
 
-    implementation group: 'org.openjfx', name: 'javafx-graphics', version: '21-ea+24'
-    implementation group: 'org.openjfx', name: 'javafx-base', version: '21-ea+24'
-    implementation group: 'org.openjfx', name: 'javafx-media', version: '21-ea+24'
-    implementation group: 'org.openjfx', name: 'javafx-controls', version: '21-ea+24'
+     implementation group: 'org.openjfx', name: 'javafx-graphics', version: '21-ea+24'
+     implementation group: 'org.openjfx', name: 'javafx-base', version: '21-ea+24'
+     implementation group: 'org.openjfx', name: 'javafx-media', version: '21-ea+24'
+     implementation group: 'org.openjfx', name: 'javafx-controls', version: '21-ea+24'
+
 }
 
 def targetJavaVersion = 20
