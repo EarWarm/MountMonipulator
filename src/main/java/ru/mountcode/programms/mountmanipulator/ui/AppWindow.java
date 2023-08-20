@@ -16,7 +16,7 @@ public class AppWindow extends Application {
     public void start(Stage primaryStage) {
 
     }
-
+//Инит гуи
     public void initialize() {
 
     }
