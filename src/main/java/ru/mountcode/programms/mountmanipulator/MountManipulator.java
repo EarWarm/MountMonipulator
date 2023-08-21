@@ -49,6 +49,6 @@ public class MountManipulator {
         }
 
         // UI
-        AppWindow.getInstance().initialize();
+        AppWindow.launch(AppWindow.class);
     }
 }
