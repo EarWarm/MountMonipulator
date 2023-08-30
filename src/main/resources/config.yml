@@ -1,3 +1,5 @@
+locale: ru
 groups:
   'Example':
-    'DupPopTransformer':
+    '0':
+      transformer-identifier: 'Optimizations:DupPopTransformer'

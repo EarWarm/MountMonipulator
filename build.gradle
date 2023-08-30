@@ -4,6 +4,12 @@ plugins {
     id 'java-gradle-plugin'
     id 'idea'
     id 'eclipse'
+    id 'org.openjfx.javafxplugin' version '0.0.13'
+}
+
+javafx {
+    version = "20"
+    modules = ['javafx.controls', 'javafx.base', 'javafx.controls', 'javafx.media']
 }
 
 group 'ru.mountcode.programms.mountmanipulator'
@@ -15,7 +21,11 @@ repositories {
     maven {
         url = uri("https://oss.sonatype.org/content/repositories/snapshots/")
     }
-    gradlePluginPortal()
+
+    maven {
+        name = "jitpack.io"
+        url = uri("https://jitpack.io")
+    }
 }
 
 dependencies {
@@ -29,9 +39,13 @@ dependencies {
     implementation group: 'org.jetbrains', name: 'annotations', version: '24.0.1'
 
     // UI libraries
-    implementation group: 'com.github.weisj', name: 'darklaf-core', version: '3.0.2'
-    implementation group: 'com.github.weisj', name: 'darklaf-theme', version: '3.0.2'
-    implementation group: 'com.github.weisj', name: 'darklaf-property-loader', version: '3.0.2'
+    implementation group: 'io.github.mkpaz', name: 'atlantafx-base', version: '2.0.1'
+    implementation group: 'com.github.hervegirod', name: 'fxsvgimage', version: '1.1'
+    implementation group: 'org.fxmisc.richtext', name: 'richtextfx', version: '0.11.1'
+
+    // Decompilers
+    implementation group: 'org.bitbucket.mstrobel', name: 'procyon-core', version: '0.6.0'
+    implementation group: 'org.bitbucket.mstrobel', name: 'procyon-compilertools', version: '0.6.0'
 }
 
 def targetJavaVersion = 20

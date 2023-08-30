@@ -1,6 +1,7 @@
 package ru.mountcode.programms.mountmanipulator.utils;
 
 import org.objectweb.asm.tree.ClassNode;
+import ru.mountcode.programms.mountmanipulator.code.ClassInfo;
 import ru.mountcode.programms.mountmanipulator.io.FixedJarInputStream;
 import ru.mountcode.programms.mountmanipulator.model.ClassCollection;
 import ru.mountcode.programms.mountmanipulator.model.JarObject;
@@ -18,7 +19,7 @@ import java.util.jar.JarOutputStream;
 public class JarUtils {
 
     public static JarObject readJar(File jar) throws IOException {
-        HashMap<String, ClassNode> classes = new HashMap<>();
+        HashMap<String, ClassInfo> classes = new HashMap<>();
         HashMap<String, byte[]> extraFiles = new HashMap<>();
 
         try (FixedJarInputStream jarStream = new FixedJarInputStream(jar, false)) {
@@ -32,8 +33,8 @@ public class JarUtils {
                 if (name.endsWith(".class")) {
                     byte[] bytes = IOUtils.readStreamFully(jarStream);
                     if (bytes.length > 0) {
-                        ClassNode classNode = IOUtils.readClassFromBytes(bytes);
-                        classes.put(classNode.name, classNode);
+                        ClassInfo classInfo = new ClassInfo(loadClass(bytes));
+                        classes.put(classInfo.name(), classInfo);
                     }
                 } else {
                     extraFiles.put(name, IOUtils.readStreamFully(jarStream));
@@ -48,7 +49,7 @@ public class JarUtils {
     }
 
     public static ClassCollection loadClasses(File jar) throws IOException {
-        HashMap<String, ClassNode> classes = new HashMap<>();
+        HashMap<String, ClassInfo> classes = new HashMap<>();
 
         try (FixedJarInputStream jarInputStream = new FixedJarInputStream(jar, false)) {
             JarEntry jarEntry;
@@ -62,8 +63,8 @@ public class JarUtils {
                 if (name.endsWith(".class")) {
                     byte[] bytes = IOUtils.readStreamFully(jarInputStream);
                     if (bytes.length > 0) {
-                        ClassNode classNode = IOUtils.readClassFromBytes(bytes);
-                        classes.put(classNode.name, classNode);
+                        ClassInfo classInfo = new ClassInfo(loadClass(bytes));
+                        classes.put(classInfo.name(), classInfo);
                     }
                 }
             }
@@ -78,23 +79,26 @@ public class JarUtils {
 
         Set<String> dirs = new HashSet<>();
         try (JarOutputStream jarOutputStream = new JarOutputStream(Files.newOutputStream(outputFile.toPath()))) {
-            for (ClassNode classNode : jar.classCollection().classes().values()) {
+            for (ClassInfo classInfo : jar.classCollection().classes().values()) {
                 try {
-                    addDirectories(classNode.name, dirs);
-                    jarOutputStream.putNextEntry(new JarEntry(classNode.name + ".class"));
-                    jarOutputStream.write(IOUtils.writeClassToBytes(classNode));
+                    addDirectories(classInfo.name(), dirs);
+                    jarOutputStream.putNextEntry(new JarEntry(classInfo.name() + ".class"));
+                    jarOutputStream.write(IOUtils.writeClassToBytes(classInfo.classNode()));
                 } catch (Exception e) {
                     e.printStackTrace();
                 } finally {
                     jarOutputStream.closeEntry();
                 }
             }
-            for (Map.Entry<String, byte[]> entry : jar.extraFiles().entrySet()) {
-                addDirectories(entry.getKey(), dirs);
-                jarOutputStream.putNextEntry(new JarEntry(entry.getKey()));
-                jarOutputStream.write(entry.getValue());
-                jarOutputStream.closeEntry();
+            if (!jar.extraFiles().isEmpty()) {
+                for (Map.Entry<String, byte[]> entry : jar.extraFiles().entrySet()) {
+                    addDirectories(entry.getKey(), dirs);
+                    jarOutputStream.putNextEntry(new JarEntry(entry.getKey()));
+                    jarOutputStream.write(entry.getValue());
+                    jarOutputStream.closeEntry();
+                }
             }
+
             for (String dirPath : dirs) {
                 jarOutputStream.putNextEntry(new JarEntry(dirPath + "/"));
                 jarOutputStream.closeEntry();

@@ -1,20 +1,6 @@
 package ru.mountcode.programms.mountmanipulator.utils.asm;
 
-import static org.objectweb.asm.Opcodes.ACC_ABSTRACT;
-import static org.objectweb.asm.Opcodes.ACC_ANNOTATION;
-import static org.objectweb.asm.Opcodes.ACC_BRIDGE;
-import static org.objectweb.asm.Opcodes.ACC_DEPRECATED;
-import static org.objectweb.asm.Opcodes.ACC_ENUM;
-import static org.objectweb.asm.Opcodes.ACC_FINAL;
-import static org.objectweb.asm.Opcodes.ACC_INTERFACE;
-import static org.objectweb.asm.Opcodes.ACC_NATIVE;
-import static org.objectweb.asm.Opcodes.ACC_PRIVATE;
-import static org.objectweb.asm.Opcodes.ACC_PROTECTED;
-import static org.objectweb.asm.Opcodes.ACC_PUBLIC;
-import static org.objectweb.asm.Opcodes.ACC_STATIC;
-import static org.objectweb.asm.Opcodes.ACC_SYNCHRONIZED;
-import static org.objectweb.asm.Opcodes.ACC_SYNTHETIC;
-import static org.objectweb.asm.Opcodes.ACC_VOLATILE;
+import static org.objectweb.asm.Opcodes.*;
 
 public final class Access {
 
@@ -155,6 +141,16 @@ public final class Access {
    */
   public static boolean isEnum(int mod) {
     return (mod & ACC_ENUM) != 0;
+  }
+
+  /**
+   * Tells whether a given access modifier is record
+   *
+   * @param mod The access modifier to check
+   * @return True if the access modifier is record, false otherwise
+   */
+  public static boolean isRecord(int mod) {
+    return (mod & ACC_RECORD) != 0;
   }
 
   /**

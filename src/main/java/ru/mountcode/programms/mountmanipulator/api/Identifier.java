@@ -21,7 +21,7 @@ public class Identifier implements Comparable<Identifier> {
     }
 
     public Identifier(String id) {
-        this(split(id, ':'));
+        this(split(id, NAMESPACE_SEPARATOR));
     }
 
     public static Identifier splitOn(String id, char delimiter) {
@@ -59,10 +59,6 @@ public class Identifier implements Comparable<Identifier> {
         return strings;
     }
 
-    public static boolean isCharValid(char c) {
-        return c >= '0' && c <= '9' || c >= 'a' && c <= 'z' || c == '_' || c == ':' || c == '/' || c == '.' || c == '-';
-    }
-
     private static boolean isPathValid(String path) {
         for (int i = 0; i < path.length(); ++i) {
             if (!isPathCharacterValid(path.charAt(i))) {
@@ -85,18 +81,18 @@ public class Identifier implements Comparable<Identifier> {
 
     private static String validateNamespace(String namespace, String path) {
         if (!isNamespaceValid(namespace)) {
-            throw new RuntimeException("Non [a-z0-9_.-] character in namespace of location: " + namespace + ":" + path);
+            throw new RuntimeException("Non [a-zA-Z0-9_.-] character in namespace of location: " + namespace + NAMESPACE_SEPARATOR + path);
         } else {
             return namespace;
         }
     }
 
     public static boolean isPathCharacterValid(char character) {
-        return character == '_' || character == '-' || character >= 'a' && character <= 'z' || character >= '0' && character <= '9' || character == '/' || character == '.';
+        return character == '_' || character == '-' || character >= 'a' && character <= 'z' || character >= 'A' && character <= 'Z' || character >= '0' && character <= '9' || character == '/';
     }
 
     private static boolean isNamespaceCharacterValid(char character) {
-        return character == '_' || character == '-' || character >= 'a' && character <= 'z' || character >= '0' && character <= '9' || character == '.';
+        return character == '_' || character == '-' || character >= 'a' && character <= 'z' || character >= 'A' && character <= 'Z' || character >= '0' && character <= '9';
     }
 
     public static boolean isValid(String id) {
@@ -106,7 +102,7 @@ public class Identifier implements Comparable<Identifier> {
 
     private static String validatePath(String namespace, String path) {
         if (!isPathValid(path)) {
-            throw new RuntimeException("Non [a-z0-9/._-] character in path of location: " + namespace + ":" + path);
+            throw new RuntimeException("Non [a-z0-9/._-] character in path of location: " + namespace + NAMESPACE_SEPARATOR + path);
         } else {
             return path;
         }
@@ -137,7 +133,7 @@ public class Identifier implements Comparable<Identifier> {
     }
 
     public String toString() {
-        return this.namespace + ":" + this.path;
+        return this.namespace + NAMESPACE_SEPARATOR + this.path;
     }
 
     public boolean equals(Object o) {
@@ -164,6 +160,6 @@ public class Identifier implements Comparable<Identifier> {
     }
 
     public String toUnderscoreSeparatedString() {
-        return this.toString().replace('/', '_').replace(':', '_');
+        return this.toString().replace('/', '_').replace(NAMESPACE_SEPARATOR, '_');
     }
 }

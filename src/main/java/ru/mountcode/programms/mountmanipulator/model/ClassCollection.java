@@ -1,23 +1,20 @@
 package ru.mountcode.programms.mountmanipulator.model;
 
-import org.jetbrains.annotations.Nullable;
-import org.objectweb.asm.tree.ClassNode;
+import ru.mountcode.programms.mountmanipulator.code.ClassInfo;
 
 import java.util.HashMap;
 
-public record ClassCollection(HashMap<String, ClassNode> classes) {
+public record ClassCollection(HashMap<String, ClassInfo> classes) {
 
-    @Nullable
-    @Override
-    public HashMap<String, ClassNode> classes() {
-        return classes;
-    }
-
-    public void addClass(String name, ClassNode classNode) {
-        this.classes.put(name, classNode);
+    public void addClass(String name, ClassInfo classInfo) {
+        this.classes.put(name, classInfo);
     }
 
     public void addClasses(ClassCollection classCollection) {
         this.classes.putAll(classCollection.classes());
+    }
+
+    public void clear() {
+        this.classes.clear();
     }
 }

@@ -1,78 +1,68 @@
 package ru.mountcode.programms.mountmanipulator.ui;
 
-import com.github.weisj.darklaf.settings.ThemeSettings;
-import ru.mountcode.programms.mountmanipulator.MountManipulator;
+import javafx.application.Application;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.stage.Stage;
 import ru.mountcode.programms.mountmanipulator.ui.listeners.ExitListener;
-import ru.mountcode.programms.mountmanipulator.ui.swing.MainPanel;
-import ru.mountcode.programms.mountmanipulator.ui.utils.SwingUtils;
+import ru.mountcode.programms.mountmanipulator.ui.panes.AppPane;
 
-import javax.swing.*;
 import java.awt.*;
+import java.io.InputStream;
+import java.net.URL;
 
-public class AppWindow extends JFrame {
+public class AppWindow extends Application {
 
     private static AppWindow instance;
 
-    public MainPanel mainPanel;
+    private Stage primaryStage;
+    private AppPane appPane;
 
     public AppWindow() {
         instance = this;
-
-        // size and position
-        this.initBounds();
-        this.setIconImage(SwingUtils.iconToFrameImage(SwingUtils.getIcon("favicon.svg", true), this));
-        this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-        this.addWindowListener(new ExitListener(this));
-
-        this.initFrame();
-        this.initMenu();
     }
 
     public static AppWindow getInstance() {
         return instance != null ? instance : new AppWindow();
     }
 
-    private void initFrame() {
-        JPanel contentPanel = new JPanel(new BorderLayout());
-
-        contentPanel.add(this.mainPanel = new MainPanel());
-
-        this.setContentPane(contentPanel);
+    public static URL getResourceUrl(String resource) {
+        return AppWindow.class.getResource("/assets/" + resource);
     }
 
-    private void initMenu() {
-        JMenuBar menuBar = new JMenuBar();
-
-        JMenu fileMenu = new JMenu("Файл");
-        JMenuItem resetWorkspaceItem = new JMenuItem("Сбросить");
-        resetWorkspaceItem.addActionListener(l -> {
-            if (JOptionPane.showConfirmDialog(this, "Вы действительно хотите сбросить рабочую область?",
-                    "Подтверждение сброса", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-                MountManipulator.getInstance().getWorkspace().reset();
-                this.mainPanel.structurePanel.classesPanel.reset();
-                this.setTitle(null);
-            }
-        });
-        fileMenu.add(resetWorkspaceItem);
-        menuBar.add(fileMenu);
-
-        JMenu settingsMenu = new JMenu("Настройки");
-
-        JMenuItem themeSettingsItem = new JMenuItem("Тема");
-        themeSettingsItem.setIcon(ThemeSettings.getIcon());
-        themeSettingsItem.addActionListener(l -> ThemeSettings.showSettingsDialog(this));
-        settingsMenu.add(themeSettingsItem);
-        menuBar.add(settingsMenu);
-
-        this.setJMenuBar(menuBar);
+    public static InputStream getResourceStream(String resource) {
+        return AppWindow.class.getResourceAsStream("/assets/" + resource);
     }
 
-    private void initBounds() {
+    @Override
+    public void start(Stage primaryStage) {
+        this.primaryStage = primaryStage;
+//        Application.setUserAgentStylesheet("/assets/styles/theme_dark.css");
+        primaryStage.setTitle("MountManipulator");
+        this.appPane = new AppPane();
+
+        primaryStage.setScene(getBoundedScene(this.appPane));
+        primaryStage.centerOnScreen();
+        primaryStage.setResizable(true);
+        primaryStage.setOnCloseRequest(new ExitListener());
+        primaryStage.getIcons().add(new Image(getResourceStream("icons/window/favicon.png")));
+        primaryStage.show();
+    }
+
+    public AppPane getAppPane() {
+        return appPane;
+    }
+
+    public Stage getPrimaryStage() {
+        return primaryStage;
+    }
+
+    private Scene getBoundedScene(Parent root) {
         Rectangle screenSize = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds();
         int width = screenSize.width / 2;
         int height = screenSize.height / 2;
-        setBounds(screenSize.width / 2 - width / 2, screenSize.height / 2 - height / 2, width, height);
-        setMinimumSize(new Dimension((int) (width / 1.25), (int) (height / 1.25)));
-    }
 
+        return new Scene(root, width, height);
+    }
 }
