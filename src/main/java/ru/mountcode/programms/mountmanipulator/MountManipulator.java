@@ -2,7 +2,10 @@ package ru.mountcode.programms.mountmanipulator;
 
 import ru.mountcode.programms.mountmanipulator.configuration.Configuration;
 import ru.mountcode.programms.mountmanipulator.helpers.IOHelper;
+import ru.mountcode.programms.mountmanipulator.lang.Lang;
 import ru.mountcode.programms.mountmanipulator.logging.Logger;
+import ru.mountcode.programms.mountmanipulator.services.DecompilerService;
+import ru.mountcode.programms.mountmanipulator.services.TransformerService;
 import ru.mountcode.programms.mountmanipulator.ui.AppWindow;
 import ru.mountcode.programms.mountmanipulator.workspace.Workspace;
 import ru.mountcode.yaml.configuration.InvalidConfigurationException;
@@ -23,7 +26,6 @@ public class MountManipulator {
 
         this.workspace = new Workspace();
         this.configuration = new Configuration();
-        LOGGER.info("test");
     }
 
     public static MountManipulator getInstance() {
@@ -39,6 +41,9 @@ public class MountManipulator {
     }
 
     public void run() {
+        TransformerService.register();
+        DecompilerService.register();
+
         // Инициализация конфигурации
         this.configuration.setFile(new File(IOHelper.getWorkingDirectory(), "config.yml"));
         this.configuration.setDefault(MountManipulator.class.getResourceAsStream("/config.yml"));
@@ -47,6 +52,9 @@ public class MountManipulator {
         } catch (IOException | InvalidConfigurationException e) {
             LOGGER.error("Error on initializing configuration", e);
         }
+
+        Lang.getInstance();
+
 
         // UI
         AppWindow.launch(AppWindow.class);

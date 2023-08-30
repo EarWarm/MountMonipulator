@@ -18,6 +18,18 @@ public class WorkspaceEvents {
         }
     });
 
+    public static final Event<StartExecuting> START_EXECUTING = EventFactory.createArrayBacked(StartExecuting.class, callbacks -> () -> {
+        for (StartExecuting callback : callbacks) {
+            callback.onStartExecuting();
+        }
+    });
+
+    public static final Event<StopExecuting> STOP_EXECUTING = EventFactory.createArrayBacked(StopExecuting.class, callbacks -> () -> {
+        for (StopExecuting callback : callbacks) {
+            callback.onStopExecuting();
+        }
+    });
+
     @FunctionalInterface
     public interface Reset {
         void onWorkspaceReset();
@@ -26,5 +38,15 @@ public class WorkspaceEvents {
     @FunctionalInterface
     public interface LoadInput {
         void onWorkspaceLoadInput(JarObject jarObject);
+    }
+
+    @FunctionalInterface
+    public interface StartExecuting {
+        void onStartExecuting();
+    }
+
+    @FunctionalInterface
+    public interface StopExecuting {
+        void onStopExecuting();
     }
 }

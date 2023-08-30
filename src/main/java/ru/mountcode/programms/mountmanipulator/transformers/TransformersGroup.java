@@ -24,4 +24,9 @@ public class TransformersGroup {
     public List<ITransformer> getTransformers() {
         return transformers;
     }
+
+    @Override
+    public String toString() {
+        return this.name;
+    }
 }
