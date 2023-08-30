@@ -1,0 +1,19 @@
+.analyser .keywords, .analyser .boolean {
+    -fx-fill: #CC7832;
+}
+
+.analyser .number {
+    -fx-fill: #6897BB;
+}
+
+.analyser .plain {
+    -fx-fill: #A9B7C6;
+}
+
+.analyser .annotation {
+    -fx-fill: #BBB529;
+}
+
+.analyser .string {
+    -fx-fill: #6A8759;
+}

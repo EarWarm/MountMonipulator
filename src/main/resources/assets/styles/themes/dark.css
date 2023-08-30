@@ -1,0 +1,173 @@
+@font-face {
+    font-family: 'Inter';
+    font-weight: bold;
+    src: url('../../fonts/Inter-Bold.ttf');
+}
+
+@font-face {
+    font-family: 'Inter';
+    font-weight: normal;
+    src: url('../../fonts/Inter-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'Inter';
+    font-weight: 300;
+    src: url('../../fonts/Inter-Light.ttf');
+}
+
+.root {
+    -color-grey-1: #1E1F22;
+    -color-grey-2: #2B2D30;
+    -color-grey-3: #393B40;
+    -color-grey-4: #43454A;
+    -color-grey-5: #4E5157;
+    -color-grey-6: #5A5D63;
+    -color-grey-7: #6F737A;
+    -color-grey-8: #868A91;
+    -color-grey-9: #9DA0A8;
+    -color-grey-10: #B4B8BF;
+    -color-grey-11: #CED0D6;
+    -color-grey-12: #DFE1E5;
+    -color-grey-13: #F0F1F2;
+    -color-grey-14: #FFFFFF;
+
+    -color-blue-1: #25324D;
+    -color-blue-2: #2E436E;
+    -color-blue-3: #35538F;
+    -color-blue-4: #375FAD;
+    -color-blue-5: #366ACE;
+    -color-blue-6: #3574F0;
+    -color-blue-7: #467FF2;
+    -color-blue-8: #548AF7;
+    -color-blue-9: #6B9BFA;
+    -color-blue-10: #83ACFC;
+    -color-blue-11: #99BBFF;
+
+    -color-green-1: #253627;
+    -color-green-2: #375239;
+    -color-green-3: #436946;
+    -color-green-4: #4E8052;
+    -color-green-5: #57965C;
+    -color-green-6: #5FAD65;
+    -color-green-7: #73BD79;
+    -color-green-8: #89CC8E;
+    -color-green-9: #A0DBA5;
+    -color-green-10: #B9EBBD;
+    -color-green-11: #D4FAD7;
+
+    -color-yellow-1: #3D3223;
+    -color-yellow-2: #5E4D33;
+    -color-yellow-3: #826A41;
+    -color-yellow-4: #9E814A;
+    -color-yellow-5: #BA9752;
+    -color-yellow-6: #D6AE58;
+    -color-yellow-7: #F2C55C;
+    -color-yellow-8: #F5D273;
+    -color-yellow-9: #F7DE8B;
+    -color-yellow-10: #FCEBA4;
+    -color-yellow-11: #FFF6BD;
+
+    -color-red-1: #402929;
+    -color-red-2: #5E3838;
+    -color-red-3: #7A4343;
+    -color-red-4: #9C4E4E;
+    -color-red-5: #BD5757;
+    -color-red-6: #DB5C5C;
+    -color-red-7: #E37774;
+    -color-red-8: #EB938D;
+    -color-red-9: #F2B1AA;
+    -color-red-10: #F7CCC6;
+    -color-red-11: #FAE3DE;
+
+    -color-orange-1: #45322B;
+    -color-orange-2: #614438;
+    -color-orange-3: #825845;
+    -color-orange-4: #A36B4E;
+    -color-orange-5: #C27A53;
+    -color-orange-6: #E08855;
+    -color-orange-7: #E5986C;
+    -color-orange-8: #F0AC81;
+    -color-orange-9: #F5BD98;
+    -color-orange-10: #FACEAF;
+    -color-orange-11: #FFDFC7;
+
+    -color-purple-1: #2F2936;
+    -color-purple-2: #3B3147;
+    -color-purple-3: #583D7A;
+    -color-purple-4: #6C469C;
+    -color-purple-5: #8150BE;
+    -color-purple-6: #955AE0;
+    -color-purple-7: #A571E6;
+    -color-purple-8: #B589EC;
+    -color-purple-9: #C4A0F3;
+    -color-purple-10: #D4B8F9;
+    -color-purple-11: #E4CEFF;
+
+    -color-teal-1: #1D3838;
+    -color-teal-2: #1E4D4A;
+    -color-teal-3: #20635D;
+    -color-teal-4: #21786F;
+    -color-teal-5: #238E82;
+    -color-teal-6: #24A394;
+    -color-teal-7: #42B1A4;
+    -color-teal-8: #60C0B5;
+    -color-teal-9: #7DCEC5;
+    -color-teal-10: #9BDDD6;
+    -color-teal-11: #B9EBE6;
+
+    -fx-background: -color-grey-2;
+    -fx-base: -color-grey-2;
+
+    -fx-color: derive(-fx-base, -40%);
+
+
+    -fx-control-inner-background: -color-grey-2;
+    -fx-control-inner-background-alt: -color-grey-2;
+    -fx-light-text-color: -color-grey-12;
+    -fx-mid-text-color: -color-grey-12;
+    -fx-dark-text-color: -color-grey-12;
+    -fx-accent: -color-blue-2;
+    -fx-focus-color: -color-blue-2;
+    -fx-selection-bar-non-focused: -color-grey-2;
+
+    -fx-font-size: 13px;
+    -fx-font-family: 'Inter';
+    -fx-background-radius: inherit;
+    -fx-background-insets: inherit;
+    -fx-padding: inherit;
+}
+
+.syntax-area, .code-area {
+    -fx-background-color: -color-grey-1;
+    -fx-fill: #A9B7C6;
+}
+
+.menu-bar {
+    -fx-background-color: -color-grey-2;
+    -fx-text-fill: -color-grey-12;
+}
+
+.menu:hover, .menu:focused, .menu:selected {
+    -fx-background-color: -color-grey-4;
+}
+
+.menu-item:hover, .menu-item:focused, .menu-item:selected {
+    -fx-background-color: -color-blue-2;
+    -fx-background-radius: 5px;
+}
+
+.context-menu {
+    -fx-background-color: -color-grey-2;
+    -fx-border-color: -color-grey-5;
+    -fx-border-radius: 5px;
+    -fx-padding: 5px 10px;
+}
+
+.context-menu-item:hover, .context-menu-item:focused {
+    -fx-background-color: -color-blue-2;
+    -fx-background-radius: 5px;
+}
+
+
+
