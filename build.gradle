@@ -39,7 +39,6 @@ dependencies {
     implementation group: 'org.jetbrains', name: 'annotations', version: '24.0.1'
 
     // UI libraries
-    implementation group: 'io.github.mkpaz', name: 'atlantafx-base', version: '2.0.1'
     implementation group: 'com.github.hervegirod', name: 'fxsvgimage', version: '1.1'
     implementation group: 'org.fxmisc.richtext', name: 'richtextfx', version: '0.11.1'
 
